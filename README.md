@@ -393,7 +393,7 @@ Customizing system settings such as hostname, timezone, and locale through the s
 
 Configuring firewall rules and enabling essential services like SSH through the script ensures that the system is secure and accessible as soon as the installation is complete. Automating these tasks helps in setting up a secure and operational environment quickly.
 
-Key Takeaways
+# Key Takeaways
 
 Consistency: Automating system setup helps maintain consistency across multiple installations, reducing the risk of configuration errors.
 
