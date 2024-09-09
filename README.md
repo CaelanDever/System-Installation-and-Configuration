@@ -182,12 +182,23 @@ Next, the script creates a boot directory within /mnt by running mkdir -p /mnt/b
 This method ensures that the root and boot partitions are correctly mounted so that the system can be set up properly. During an installation process, files will be copied to these partitions (e.g., system files to /mnt and bootloader files to /mnt/boot). If additional partitions, such as a home or swap partition, were part of the setup, they would also be mounted in a similar way at this stage.
 
 
+After this part of the script is executed, the following system configurations are applied:
+
+
+<img width="447" alt="p2 9" src="https://github.com/user-attachments/assets/fe4a77e1-cc98-4661-8cbc-c393cfa3528e">
+
+
+
 # 2. Package Installation
 
 <img width="378" alt="p2 3" src="https://github.com/user-attachments/assets/5b38c8ac-b0ec-4f10-923b-1f8d2255a7de">
 
 
 yum is used to install common packages such as vim, net-tools, firewalld, and openssh-server. You can modify the package list based on your needs.
+
+
+<img width="462" alt="p2 10" src="https://github.com/user-attachments/assets/d5d2f4a8-d842-43c1-a512-4efa7daf0caa">
+
 
 
 # 3. Network Configuration
@@ -312,7 +323,7 @@ Echoing the Completion Message:
 The script first outputs a message saying, "Installation complete. Rebooting the system..." to both the terminal and the log file ($LOGFILE). This serves as a final indication to the user or administrator that the installation tasks are successfully completed and the system is ready to be rebooted. This message in the log file can also help track when the installation was finalized.
 
 
-Rebooting the System:
+# Rebooting the System:
 
 The command reboot is used to restart the system. This is crucial because several configuration changes (such as kernel updates, network settings, and partition mounting) often require a reboot to take full effect. By including this command at the end of the script, the system automatically reboots without requiring manual intervention.
 
