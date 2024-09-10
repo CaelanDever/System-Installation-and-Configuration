@@ -439,7 +439,9 @@ sudo fdisk -l
 
 # 2. Optional: Move Existing Data
 
-Create a Temporary Mount Point: If /home already had data, I created a temporary mount point to safely move the data before encryption.
+Create a Temporary Mount Point: 
+
+If /home already had data, I created a temporary mount point to safely move the data before encryption.
 
 sudo mkdir /mnt/temp_home
 
@@ -453,7 +455,9 @@ sudo cp -a /mnt/temp_home/* /path/to/new/location/
 
 # 3. Mount the New Partition
 
-Create the Mount Point: I created a mount point for the new partition where it would be mounted after encryption.
+Create the Mount Point:
+
+I created a mount point for the new partition where it would be mounted after encryption.
 
 sudo mkdir /home
 
@@ -511,7 +515,9 @@ sudo cryptsetup luksOpen /dev/sdc2 my_encrypted_volume
 
 # 8. Format the Encrypted Container
 
-Format the Encrypted Container: I formatted the newly opened encrypted volume with the ext4 filesystem.
+Format the Encrypted Container:
+
+I formatted the newly opened encrypted volume with the ext4 filesystem.
 
 sudo mkfs.ext4 /dev/mapper/my_encrypted_volume
 
@@ -521,17 +527,23 @@ sudo mkfs.ext4 /dev/mapper/my_encrypted_volume
 
 # 9. Mount the Encrypted Container
 
-Create a Mount Point: I created a mount point for the encrypted container.
+Create a Mount Point: 
+
+I created a mount point for the encrypted container.
 
 sudo mkdir /mnt/my_encrypted_data
 
-Mount the Filesystem: I then mounted the encrypted container to the newly created mount point.
+Mount the Filesystem: 
+
+I then mounted the encrypted container to the newly created mount point.
 
 sudo mount /dev/mapper/my_encrypted_volume /mnt/my_encrypted_data
 
 # 10. Update /etc/fstab and /etc/crypttab
 
-Edit /etc/crypttab: To automate the unlocking of the encrypted volume at boot, I added an entry for the encrypted volume in the /etc/crypttab file.
+Edit /etc/crypttab:
+
+To automate the unlocking of the encrypted volume at boot, I added an entry for the encrypted volume in the /etc/crypttab file.
 
 sudo vi /etc/crypttab
 
@@ -539,7 +551,9 @@ I added the following line:
 
 my_encrypted_volume /dev/sdc2 none luks
 
-Edit /etc/fstab: I also updated /etc/fstab to ensure the encrypted volume is mounted automatically at boot.
+Edit /etc/fstab:
+
+I also updated /etc/fstab to ensure the encrypted volume is mounted automatically at boot.
 
 sudo vi /etc/fstab
 
@@ -555,7 +569,9 @@ I added the following line:
 
 # 11. Test the Encryption Setup
 
-Reboot the Server: I rebooted the server to verify that the encrypted volumes are properly mounted and accessible.
+Reboot the Server:
+
+I rebooted the server to verify that the encrypted volumes are properly mounted and accessible.
 
 sudo reboot
 
@@ -565,7 +581,9 @@ After rebooting, I checked if the encrypted volumes were mounted correctly.
 
 df -h | grep /mnt/my_encrypted_data
 
-Test Accessibility: I created and read files to ensure that the encrypted volume was writable and readable.
+Test Accessibility:
+
+I created and read files to ensure that the encrypted volume was writable and readable.
 
 sudo touch /mnt/my_encrypted_data/testfile
 
