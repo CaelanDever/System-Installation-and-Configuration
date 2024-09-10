@@ -634,50 +634,60 @@ I conducted performance benchmarks to compare system performance before and afte
 
 # Tier 3 Task 3: Automated Configuration Management with Ansible
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automated Configuration Management with Ansible - Step by Step Guide</title>
-</head>
-<body>
-    <h1>Implementing Automated Configuration Management with Ansible</h1>
-    <p>Implementing automated configuration management with Ansible involves several steps, from setting up the control node to managing and testing playbooks. Here's a step-by-step guide to help you complete Tier 3 Task 3:</p>
-    
-    <h2>1. Set Up an Ansible Control Node</h2>
-    <p><strong>Install Ansible:</strong> On your control node (which can be any system you choose to manage other systems), I install Ansible using the package manager.</p>
-    <ul>
-        <li>For CentOS/RHEL system:</li>
-        <pre><code>sudo yum install ansible</code></pre>
-        <li>For Ubuntu/Debian systems:</li>
-        <pre><code>
+# Implementing Automated Configuration Management with Ansible
+
+Implementing automated configuration management with Ansible involves several steps, from setting up the control node to managing and testing playbooks. Here's my step-by-step guide to help me complete **Tier 3 Task 3**.
+
+## 1. Set Up an Ansible Control Node
+
+### Install Ansible:
+On my control node (which can be any system I choose to manage other systems), I install Ansible using the package manager.  
+For a CentOS/RHEL system, I use:
+
+```bash
+sudo yum install ansible
+
+For Ubuntu/Debian systems, I use:
+
 sudo apt update
 sudo apt install ansible
-        </code></pre>
-    </ul>
-    <p><strong>Verify Installation:</strong> Ensure Ansible is installed correctly by checking its version:</p>
-    <pre><code>ansible --version</code></pre>
-    
-    <h2>2. Define Inventory Files</h2>
-    <p><strong>Create Inventory File:</strong> Ansible uses an inventory file to list and group hosts. The default location is <code>/etc/ansible/hosts</code>, but I can specify a different file with the <code>-i</code> option. Here is how I create or edit an inventory file (e.g., inventory.ini):</p>
-    <pre><code>
+
+Verify Installation:
+
+Ensure Ansible is installed correctly by checking its version:
+
+ansible --version
+
+2. Define Inventory Files
+
+Create Inventory File:
+
+Ansible uses an inventory file to list and group hosts. The default location is /etc/ansible/hosts, but I can specify a different file with the -i option.
+I create or edit an inventory file, e.g., inventory.ini:
+
 [webservers]
 web1.example.com
 web2.example.com
 
 [databases]
 db1.example.com
-    </code></pre>
-    <p><strong>Test Connectivity:</strong> I verify that Ansible can connect to my hosts:</p>
-    <pre><code>ansible all -m ping -i inventory.ini</code></pre>
-    
-    <h2>3. Create Ansible Playbooks</h2>
-    <p>Ansible playbooks are YAML files that define the tasks to be executed. Below are examples of how I create playbooks for various tasks:</p>
 
-    <h3>Install Packages:</h3>
-    <p>I create a playbook named <code>install_packages.yml</code>:</p>
-    <pre><code>
+I can also define variables specific to each group or host.
+
+Test Connectivity:
+
+Verify that Ansible can connect to my hosts:
+
+ansible all -m ping -i inventory.ini
+
+3. Create Ansible Playbooks
+
+Ansible playbooks are YAML files that define the tasks to be executed. Here’s a brief overview of how I create playbooks for various tasks:
+
+Install Packages:
+
+Create a playbook install_packages.yml:
+
 - name: Install packages
   hosts: all
   become: yes
@@ -691,11 +701,11 @@ db1.example.com
       yum:
         name: git
         state: present
-    </code></pre>
 
-    <h3>Manage Services:</h3>
-    <p>I create a playbook named <code>manage_services.yml</code>:</p>
-    <pre><code>
+Manage Services:
+
+Create a playbook manage_services.yml:
+
 - name: Manage services
   hosts: all
   become: yes
@@ -711,11 +721,11 @@ db1.example.com
         name: firewalld
         state: stopped
         enabled: no
-    </code></pre>
 
-    <h3>Configure System Settings:</h3>
-    <p>I create a playbook named <code>configure_system.yml</code>:</p>
-    <pre><code>
+Configure System Settings:
+
+Create a playbook configure_system.yml:
+
 - name: Configure system settings
   hosts: all
   become: yes
@@ -730,11 +740,11 @@ db1.example.com
     - name: Configure timezone
       timezone:
         name: America/New_York
-    </code></pre>
 
-    <h3>Manage Configuration Files:</h3>
-    <p>I create a playbook named <code>manage_files.yml</code>:</p>
-    <pre><code>
+Manage Configuration Files:
+
+Create a playbook manage_files.yml:
+
 - name: Manage configuration files
   hosts: all
   become: yes
@@ -746,57 +756,93 @@ db1.example.com
         owner: root
         group: root
         mode: '0644'
-    </code></pre>
 
-    <h2>4. Test Ansible Playbooks</h2>
-    <p><strong>Run Playbooks:</strong> I execute each playbook to ensure they work correctly:</p>
-    <pre><code>
+4. Test Ansible Playbooks
+
+Run Playbooks:
+
+Execute each playbook to ensure they work correctly:
+
 ansible-playbook -i inventory.ini install_packages.yml
 ansible-playbook -i inventory.ini manage_services.yml
 ansible-playbook -i inventory.ini configure_system.yml
 ansible-playbook -i inventory.ini manage_files.yml
-    </code></pre>
-    <p><strong>Verify Changes:</strong> I log in to the managed hosts to verify that the changes were applied correctly.</p>
 
-    <h2>5. Implement Version Control</h2>
-    <p><strong>Initialize Git Repository:</strong> I navigate to the directory where I store my playbooks:</p>
-    <pre><code>
+Verify Changes:
+
+Log in to my managed hosts to verify that the changes were applied correctly. For example, I check that services are running, packages are installed, and configuration files are updated.
+
+5. Implement Version Control
+
+Initialize Git Repository:
+
+Navigate to the directory where I store my playbooks:
+
 cd /path/to/your/playbooks
 git init
-    </code></pre>
-    <p><strong>Add and Commit Playbooks:</strong> I add my playbooks to the repository:</p>
-    <pre><code>
+
+Add and Commit Playbooks:
+
+Add my playbooks to the repository:
+
 git add .
 git commit -m "Initial commit of Ansible playbooks"
-    </code></pre>
-    <p><strong>Push to Remote Repository (Optional):</strong> I push my changes to a remote repository, if I have one:</p>
-    <pre><code>
+
+Push to Remote Repository (Optional):
+
+If I have a remote repository (e.g., GitHub, GitLab), I push my changes:
+
 git remote add origin <repository-url>
 git push -u origin master
-    </code></pre>
 
-    <h2>6. Schedule Automated Playbook Runs</h2>
-    <p><strong>Using Ansible Tower (AWX):</strong> I use Ansible Tower to create jobs and set schedules for automated playbook runs.</p>
-    <p><strong>Using Cron Jobs:</strong> If I don’t have Ansible Tower, I use cron jobs to schedule playbook runs. For example, to run a playbook daily at midnight:</p>
-    <pre><code>
+6. Schedule Automated Playbook Runs
+
+Using Ansible Tower (AWX):
+
+Ansible Tower (or AWX, its open-source counterpart) provides a web interface for scheduling playbook runs. I can create jobs and set schedules for these jobs through the Tower interface.
+
+Using Cron Jobs:
+
+If I don’t have Ansible Tower, I can use cron jobs to schedule playbook runs. For example, to run a playbook daily at midnight:
+
 sudo crontab -e
-0 0 * * * ansible-playbook -i /path/to/inventory.ini /path/to/playbook.yml
-    </code></pre>
 
-    <h2>7. Monitor and Audit Changes</h2>
-    <p><strong>Enable Ansible Logging:</strong> I configure Ansible to log its activities in the <code>ansible.cfg</code> file:</p>
-    <pre><code>
+Add the following line:
+
+0 0 * * * ansible-playbook -i /path/to/inventory.ini /path/to/playbook.yml
+
+7. Monitor and Audit Changes
+
+Enable Ansible Logging:
+
+Configure Ansible to log its activities. I set the logging configuration in the ansible.cfg file:
+
 [defaults]
 log_path = /var/log/ansible.log
-    </code></pre>
-    <p><strong>Review Logs:</strong> I periodically review the logs to ensure playbooks are running as expected and no errors are occurring.</p>
-    <p><strong>Audit Changes:</strong> I use tools like auditd or OSSEC to monitor and audit system changes.</p>
 
-    <h2>8. Document the Configuration Management Process</h2>
-    <p><strong>Create Documentation:</strong> I document my Ansible setup, including the playbook structure, usage instructions, and best practices.</p>
-    <p><strong>Share Documentation:</strong> I share the documentation with my team or store it in a centralized location.</p>
+Review Logs:
 
-    <p>By following these steps, I am able to set up automated configuration management with Ansible, ensuring consistent and efficient system management across multiple hosts.</p>
-</body>
-</html>
+Periodically review the logs to ensure that playbooks are running as expected and no errors are occurring.
+
+Audit Changes:
+
+Use tools like auditd or OSSEC to monitor and audit changes made to my system. These tools help track configuration changes and detect unauthorized modifications.
+
+8. Document the Configuration Management Process
+
+Create Documentation:
+
+I document my Ansible setup, including:
+
+	•	Playbook Structure: Describe the purpose of each playbook and its tasks.
+	•	Usage Instructions: Provide instructions on how to run and manage playbooks.
+	•	Best Practices: Include recommendations for writing and maintaining playbooks, such as using roles and including comments.
+
+Share Documentation:
+
+I share my documentation with my team or store it in a centralized location where others can access it.
+
+By following these steps, I can set up automated configuration management with Ansible, ensuring consistent and efficient system management across multiple hosts.
+
+
 
