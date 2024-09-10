@@ -644,7 +644,7 @@ Implementing automated configuration management with Ansible involves several st
 On my control node (which can be any system I choose to manage other systems), I install Ansible using the package manager.  
 For a CentOS/RHEL system, I use:
 
-```bash
+
 sudo yum install ansible
 
 For Ubuntu/Debian systems, I use:
@@ -658,6 +658,8 @@ Ensure Ansible is installed correctly by checking its version:
 
 ansible --version
 
+<img width="441" alt="ans 4" src="https://github.com/user-attachments/assets/81a3349d-1d90-4a26-b226-a0b5e4e34d39">
+
 2. Define Inventory Files
 
 Create Inventory File:
@@ -666,8 +668,9 @@ Ansible uses an inventory file to list and group hosts. The default location is 
 I create or edit an inventory file, e.g., inventory.ini:
 
 [webservers]
-web1.example.com
-web2.example.com
+centos8_Am1
+Centos8_pvm2
+Centos8_pvm3
 
 [databases]
 db1.example.com
@@ -702,6 +705,8 @@ Create a playbook install_packages.yml:
         name: git
         state: present
 
+<img width="458" alt="ans1" src="https://github.com/user-attachments/assets/d297250c-cb43-4fc2-acbd-e35e3f1ab540">
+
 Manage Services:
 
 Create a playbook manage_services.yml:
@@ -722,6 +727,8 @@ Create a playbook manage_services.yml:
         state: stopped
         enabled: no
 
+<img width="463" alt="anss" src="https://github.com/user-attachments/assets/e5716bda-5c56-4806-baba-18e890e13357">
+
 Configure System Settings:
 
 Create a playbook configure_system.yml:
@@ -741,6 +748,9 @@ Create a playbook configure_system.yml:
       timezone:
         name: America/New_York
 
+<img width="461" alt="ans2" src="https://github.com/user-attachments/assets/24dccfef-7f90-4c56-ab35-32f3fdd74b82">
+
+
 Manage Configuration Files:
 
 Create a playbook manage_files.yml:
@@ -756,6 +766,8 @@ Create a playbook manage_files.yml:
         owner: root
         group: root
         mode: '0644'
+
+<img width="450" alt="ans3" src="https://github.com/user-attachments/assets/b45e4faa-52e7-4138-896c-62fdac10bb9a">
 
 4. Test Ansible Playbooks
 
@@ -810,6 +822,10 @@ sudo crontab -e
 Add the following line:
 
 0 0 * * * ansible-playbook -i /path/to/inventory.ini /path/to/playbook.yml
+
+
+<img width="441" alt="ans 4" src="https://github.com/user-attachments/assets/6af1c067-b89d-4a75-99cc-c57cefc376e0">
+
 
 7. Monitor and Audit Changes
 
