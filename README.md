@@ -451,7 +451,9 @@ sudo mount --bind /home /mnt/temp_home
 
 Copy Data to a New Location: If needed, I copied the data to a new location to ensure it was preserved during the encryption process.
 
-sudo cp -a /mnt/temp_home/* /path/to/new/location/
+sudo mkdir -p /mnt/backup
+
+sudo cp -a /mnt/temp_home/* /mnt/backup/
 
 # 3. Mount the New Partition
 
