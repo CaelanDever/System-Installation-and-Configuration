@@ -1,6 +1,8 @@
 # System-Installation-and-Configuration
 
-# Automated System Installation Script
+# Tier 3 Task 1: 
+
+# Tier 3 Task 1: Automated System Installation Script
 
 Here’s how I created an automated installation script (install.sh) for CentOS 8 to handle tasks like partitioning the disk, installing packages, creating users, and configuring the system. Below is the breakdown of the script, and I’ve documented each step as I implemented it. You can modify and extend this script as needed for your specific use cases.
 
@@ -408,6 +410,9 @@ Documentation: Including logging and detailed comments in the script ensures tha
 Overall, creating and using this script has greatly enhanced my ability to manage system installations efficiently and reliably.
 
 
+---------------------------------------------------------------------
+
+# Tier 3 Task 2: Implementing Disk Encryption for Data Security
 
 
 
