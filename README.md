@@ -1,8 +1,8 @@
 # System-Installation-and-Configuration
 
-# Tier 3 Task 1: 
+# Tier 3 Task 1:
 
-# Tier 3 Task 1: Automated System Installation Script
+# Automated System Installation Script
 
 Here’s how I created an automated installation script (install.sh) for CentOS 8 to handle tasks like partitioning the disk, installing packages, creating users, and configuring the system. Below is the breakdown of the script, and I’ve documented each step as I implemented it. You can modify and extend this script as needed for your specific use cases.
 
@@ -413,6 +413,178 @@ Overall, creating and using this script has greatly enhanced my ability to manag
 ---------------------------------------------------------------------
 
 # Tier 3 Task 2: Implementing Disk Encryption for Data Security
+
+# Steps to Implement Disk Encryption with LUKS
+# 1. Identify Partitions or Volumes
+
+List Partitions and Volumes:
+
+I started by listing all available block devices using the lsblk command. This showed me the partitions and their mount points, helping me understand the current partition layout and usage.
+
+lsblk
+
+Check Disk Usage: Next, I used df -h to see which partitions are used for data storage and to get an overview of disk usage. This step was crucial to identify sensitive data and decide which partitions required encryption.
+
+df -h
+
+Review Partition Layout:
+
+For more detailed information about partition tables, I used fdisk -l. This provided a comprehensive view of the partition scheme and helped me verify the layout.
+
+sudo fdisk -l
+
+# 2. Optional: Move Existing Data
+
+Create a Temporary Mount Point: If /home already had data, I created a temporary mount point to safely move the data before encryption.
+
+sudo mkdir /mnt/temp_home
+
+Mount the Current /home: I mounted the existing /home directory to the temporary location.
+
+sudo mount --bind /home /mnt/temp_home
+
+Copy Data to a New Location: If needed, I copied the data to a new location to ensure it was preserved during the encryption process.
+
+sudo cp -a /mnt/temp_home/* /path/to/new/location/
+
+# 3. Mount the New Partition
+
+Create the Mount Point: I created a mount point for the new partition where it would be mounted after encryption.
+
+sudo mkdir /home
+
+Mount the New Partition: I mounted the new partition to /home.
+
+sudo mount /dev/sdc2 /home
+
+# 4. Update /etc/fstab
+
+Edit /etc/fstab: To ensure that the new partition mounts automatically at boot, I edited the /etc/fstab file and added an entry for /dev/sdc2.
+
+sudo nano /etc/fstab
+
+I added the following line:
+
+/dev/sdc2  /home  ext4  defaults  0  2
+
+This change makes sure the system mounts the partition correctly on startup.
+
+# 5. Install Encryption Tools
+
+Install cryptsetup: 
+
+I installed the cryptsetup package, which provides the tools needed for managing LUKS encryption.
+
+sudo yum install cryptsetup
+
+# 6. Backup Important Data
+
+Backup Data:
+
+Before proceeding with encryption, I made sure to back up all important data on the partitions to be encrypted. This step was crucial to prevent data loss if anything went wrong during the encryption process.
+
+# 7. Create an Encrypted Container
+
+Initialize LUKS Encryption:
+
+I formatted the partition with LUKS encryption using the cryptsetup luksFormat command. This step sets up the encryption and requires me to enter and confirm a passphrase, which is needed to unlock the partition.
+
+sudo cryptsetup luksFormat /dev/sdc2
+
+Open the Encrypted Container: I then opened the encrypted container, making it available for mounting.
+
+sudo cryptsetup luksOpen /dev/sdc2 my_encrypted_volume
+
+# 8. Format the Encrypted Container
+
+Format the Encrypted Container: I formatted the newly opened encrypted volume with the ext4 filesystem.
+
+sudo mkfs.ext4 /dev/mapper/my_encrypted_volume
+
+# 9. Mount the Encrypted Container
+
+Create a Mount Point: I created a mount point for the encrypted container.
+
+sudo mkdir /mnt/my_encrypted_data
+
+Mount the Filesystem: I then mounted the encrypted container to the newly created mount point.
+
+sudo mount /dev/mapper/my_encrypted_volume /mnt/my_encrypted_data
+
+# 10. Update /etc/fstab and /etc/crypttab
+
+Edit /etc/crypttab: To automate the unlocking of the encrypted volume at boot, I added an entry for the encrypted volume in the /etc/crypttab file.
+
+sudo nano /etc/crypttab
+
+I added the following line:
+
+my_encrypted_volume /dev/sdc2 none luks
+
+Edit /etc/fstab: I also updated /etc/fstab to ensure the encrypted volume is mounted automatically at boot.
+
+sudo nano /etc/fstab
+
+I added the following line:
+
+/dev/mapper/my_encrypted_volume /mnt/my_encrypted_data ext4 defaults 0 2
+
+# 11. Test the Encryption Setup
+
+Reboot the Server: I rebooted the server to verify that the encrypted volumes are properly mounted and accessible.
+
+sudo reboot
+
+Verify Mount Points: 
+
+After rebooting, I checked if the encrypted volumes were mounted correctly.
+
+df -h | grep /mnt/my_encrypted_data
+
+Test Accessibility: I created and read files to ensure that the encrypted volume was writable and readable.
+
+sudo touch /mnt/my_encrypted_data/testfile
+
+sudo ls -l /mnt/my_encrypted_data
+
+sudo cat /mnt/my_encrypted_data/testfile
+
+# 12. Implement Secure Management of Encryption Keys
+
+Use a Hardware Security Module (HSM): 
+
+I configured an HSM to securely store encryption keys and followed the manufacturer's guidelines for integration.
+
+Use a Key Management Service (KMS):
+
+I considered cloud-based KMS solutions like AWS KMS, Azure Key Vault, or Google Cloud KMS, and followed their documentation for integration.
+
+Secure Offline Storage: 
+
+If using offline storage, I ensured that keys were stored in a secure physical location and access was restricted.
+
+Key Rotation and Management:
+
+I implemented key rotation policies to periodically change encryption keys and documented key access and usage policies.
+Monitor System Performance and Resource Utilization
+
+# 13. Monitor Performance Metrics: I used tools like top, iostat, and vmstat to monitor system performance and ensure encryption did not cause excessive latency.
+
+top
+iostat -x
+vmstat 1
+
+Assess Resource Utilization: 
+
+I checked CPU and memory usage to ensure they were within acceptable ranges, considering that encryption might slightly increase CPU usage.
+
+free -m
+
+Performance Benchmarks: 
+
+I conducted performance benchmarks to compare system performance before and after encryption, analyzing results to identify and address any significant impacts.
+
+# By following these detailed steps, I successfully implemented disk encryption with LUKS on my CentOS server, enhancing data security while maintaining system functionality and performance.
 
 
 
