@@ -1,0 +1,74 @@
+Ansible playbooks are YAML files that define the tasks to be executed. Here’s a brief overview of how I create playbooks for various tasks:
+
+Install Packages:
+
+Create a playbook install_packages.yml:
+
+- name: Install packages
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install HTTPD
+      yum:
+        name: httpd
+        state: present
+
+    - name: Install Git
+      yum:
+        name: git
+        state: present
+
+Manage Services:
+
+Create a playbook manage_services.yml:
+
+- name: Manage services
+  hosts: all
+  become: yes
+  tasks:
+    - name: Ensure HTTPD is running
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Stop and disable firewalld
+      service:
+        name: firewalld
+        state: stopped
+        enabled: no
+
+Configure System Settings:
+
+Create a playbook configure_system.yml:
+
+- name: Configure system settings
+  hosts: all
+  become: yes
+  tasks:
+    - name: Create a new user
+      user:
+        name: newuser
+        state: present
+        groups: wheel
+        shell: /bin/bash
+
+    - name: Configure timezone
+      timezone:
+        name: America/New_York
+
+Manage Configuration Files:
+
+Create a playbook manage_files.yml:
+
+- name: Manage configuration files
+  hosts: all
+  become: yes
+  tasks:
+    - name: Copy custom configuration file
+      copy:
+        src: /path/to/local/configfile
+        dest: /etc/custom/configfile
+        owner: root
+        group: root
+        mode: '0644'
