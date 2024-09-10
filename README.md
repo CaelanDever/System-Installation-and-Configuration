@@ -660,7 +660,7 @@ ansible --version
 
 <img width="441" alt="ans 4" src="https://github.com/user-attachments/assets/81a3349d-1d90-4a26-b226-a0b5e4e34d39">
 
-2. Define Inventory Files
+# 2. Define Inventory Files
 
 Create Inventory File:
 
@@ -683,7 +683,7 @@ Verify that Ansible can connect to my hosts:
 
 ansible all -m ping -i inventory.ini
 
-3. Create Ansible Playbooks
+# 3. Create Ansible Playbooks
 
 Ansible playbooks are YAML files that define the tasks to be executed. Here’s a brief overview of how I create playbooks for various tasks:
 
@@ -769,7 +769,7 @@ Create a playbook manage_files.yml:
 
 <img width="450" alt="ans3" src="https://github.com/user-attachments/assets/b45e4faa-52e7-4138-896c-62fdac10bb9a">
 
-4. Test Ansible Playbooks
+# 4. Test Ansible Playbooks
 
 Run Playbooks:
 
@@ -784,7 +784,7 @@ Verify Changes:
 
 Log in to my managed hosts to verify that the changes were applied correctly. For example, I check that services are running, packages are installed, and configuration files are updated.
 
-5. Implement Version Control
+# 5. Implement Version Control
 
 Initialize Git Repository:
 
@@ -807,7 +807,7 @@ If I have a remote repository (e.g., GitHub, GitLab), I push my changes:
 git remote add origin <repository-url>
 git push -u origin master
 
-6. Schedule Automated Playbook Runs
+# 6. Schedule Automated Playbook Runs
 
 Using Ansible Tower (AWX):
 
@@ -827,7 +827,7 @@ Add the following line:
 <img width="441" alt="ans 4" src="https://github.com/user-attachments/assets/6af1c067-b89d-4a75-99cc-c57cefc376e0">
 
 
-7. Monitor and Audit Changes
+# 7. Monitor and Audit Changes
 
 Enable Ansible Logging:
 
@@ -844,7 +844,7 @@ Audit Changes:
 
 Use tools like auditd or OSSEC to monitor and audit changes made to my system. These tools help track configuration changes and detect unauthorized modifications.
 
-8. Document the Configuration Management Process
+# 8. Document the Configuration Management Process
 
 Create Documentation:
 
