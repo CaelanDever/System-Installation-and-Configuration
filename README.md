@@ -427,6 +427,10 @@ Check Disk Usage: Next, I used df -h to see which partitions are used for data s
 
 df -h
 
+
+<img width="323" alt="p3 1" src="https://github.com/user-attachments/assets/2d179ba8-72b2-45e4-bc87-a4b85fede8ae">
+
+
 Review Partition Layout:
 
 For more detailed information about partition tables, I used fdisk -l. This provided a comprehensive view of the partition scheme and helped me verify the layout.
@@ -477,6 +481,12 @@ I installed the cryptsetup package, which provides the tools needed for managing
 
 sudo yum install cryptsetup
 
+
+
+<img width="450" alt="p3 3" src="https://github.com/user-attachments/assets/5c4f4b7e-768d-4162-84e3-a1b4967962a1">
+
+
+
 # 6. Backup Important Data
 
 Backup Data:
@@ -491,6 +501,10 @@ I formatted the partition with LUKS encryption using the cryptsetup luksFormat c
 
 sudo cryptsetup luksFormat /dev/sdc2
 
+
+<img width="450" alt="p3 4" src="https://github.com/user-attachments/assets/294841d3-b502-43f6-a7a9-80b5d22c8a63">
+
+
 Open the Encrypted Container: I then opened the encrypted container, making it available for mounting.
 
 sudo cryptsetup luksOpen /dev/sdc2 my_encrypted_volume
@@ -500,6 +514,10 @@ sudo cryptsetup luksOpen /dev/sdc2 my_encrypted_volume
 Format the Encrypted Container: I formatted the newly opened encrypted volume with the ext4 filesystem.
 
 sudo mkfs.ext4 /dev/mapper/my_encrypted_volume
+
+
+<img width="424" alt="p3 5" src="https://github.com/user-attachments/assets/16a48980-0736-49f7-942d-1a2f1654b4f6">
+
 
 # 9. Mount the Encrypted Container
 
@@ -515,7 +533,7 @@ sudo mount /dev/mapper/my_encrypted_volume /mnt/my_encrypted_data
 
 Edit /etc/crypttab: To automate the unlocking of the encrypted volume at boot, I added an entry for the encrypted volume in the /etc/crypttab file.
 
-sudo nano /etc/crypttab
+sudo vi /etc/crypttab
 
 I added the following line:
 
@@ -523,11 +541,17 @@ my_encrypted_volume /dev/sdc2 none luks
 
 Edit /etc/fstab: I also updated /etc/fstab to ensure the encrypted volume is mounted automatically at boot.
 
-sudo nano /etc/fstab
+sudo vi /etc/fstab
 
 I added the following line:
 
 /dev/mapper/my_encrypted_volume /mnt/my_encrypted_data ext4 defaults 0 2
+
+
+
+<img width="449" alt="p3 6" src="https://github.com/user-attachments/assets/0958a873-7207-42ed-8893-e43ab7faea7f">
+
+
 
 # 11. Test the Encryption Setup
 
